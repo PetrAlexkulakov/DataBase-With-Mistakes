@@ -2,7 +2,7 @@ import { MainData } from "../interfaces/MainData";
 
 function DataTable({ data }: { data: MainData[]}) {
   return (
-    <div className="data-table">
+    <div className="data-table border border-primary p-3">
       <table>
         <thead>
           <tr>

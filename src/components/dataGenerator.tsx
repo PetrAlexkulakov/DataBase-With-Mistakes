@@ -1,9 +1,13 @@
-import { faker } from '@faker-js/faker';
+import { Faker } from '@faker-js/faker';
+import { allFakers } from '@faker-js/faker';
 import { MainData } from '../interfaces/MainData';
+import { RegionType } from '../interfaces/regionType';
 
 class DataGenerator {
-    constructor (private region: string, private errorSliderValue: number, private errorFieldValue: number, seed: number) {
-      faker.seed(seed);
+    private customizedFaker: Faker;
+    constructor (private region: RegionType, private errorSliderValue: number, private errorFieldValue: number, seed: number) {
+        this.customizedFaker = allFakers[region]
+        this.customizedFaker.seed(seed)
     }
     generateData() {
       const newData: MainData[] = [];
@@ -16,13 +20,22 @@ class DataGenerator {
     }
 
     private generatePerson() {
+      const faker = this.customizedFaker
       return {
-        randomIdentifier: faker.datatype.uuid(),
-        name: faker.person.firstName() + faker.person.lastName(),
-        address: faker.address.streetAddress(),
+        randomIdentifier: faker.string.uuid().slice(0, 13),
+        name: `${faker.person.firstName()} ${faker.person.lastName()}`,
+        address: this.region === RegionType.de ?
+         `${faker.location.state()} ${faker.location.city()} ${faker.location.street()} ${faker.location.secondaryAddress()}` :
+         this.region === RegionType.en ?
+         `${faker.location.city()} ${faker.location.street()} ${faker.location.buildingNumber()}` :
+         `${faker.location.zipCode()} ${faker.location.city()} ${faker.location.streetAddress()}`,
         phone: faker.phone.number()
       }
     }
+
+    // private cryptoPerson(person: MainData) {
+      
+    // }
 }
   
 export default DataGenerator;
