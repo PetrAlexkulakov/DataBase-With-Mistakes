@@ -5,7 +5,7 @@ import { RegionType } from '../interfaces/RegionType';
 
 class DataGenerator {
     private customizedFaker: Faker;
-    constructor (private region: RegionType, private errorSliderValue: number, private errorFieldValue: number, seed: number) {
+    constructor (private region: RegionType, private errorFieldValue: number, seed: number) {
         this.customizedFaker = allFakers[region]
         this.customizedFaker.seed(seed)
     }
