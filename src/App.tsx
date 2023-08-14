@@ -26,7 +26,7 @@ function App() {
 
   const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
-    setErrorFieldValue(newValue);
+    setErrorFieldValue(Math.min(newValue, 1000));
     setErrorSliderValue(Math.min(newValue, 10)); 
   };
 
@@ -43,8 +43,8 @@ function App() {
           value={errorSliderValue}
           id="customRange1" 
           onChange={handleSliderChange} />
-        <input type="number" min="0" max="1000" step="1" 
-          value={errorFieldValue}
+        <input type="number" min="0" max="1000" step="0.25" 
+          value={Math.min(errorFieldValue, 1000)}
           placeholder='Errors' 
           onChange={handleNumberChange} />
         <input type="number" name="name" placeholder='Seed' 
