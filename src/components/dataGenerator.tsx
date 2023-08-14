@@ -1,7 +1,7 @@
 import { Faker } from '@faker-js/faker';
 import { allFakers } from '@faker-js/faker';
 import { MainData } from '../interfaces/MainData';
-import { RegionType } from '../interfaces/regionType';
+import { RegionType } from '../interfaces/RegionType';
 
 class DataGenerator {
     private customizedFaker: Faker;
@@ -9,20 +9,19 @@ class DataGenerator {
         this.customizedFaker = allFakers[region]
         this.customizedFaker.seed(seed)
     }
-    generateData() {
+    generateData(ammount: number) {
       const newData: MainData[] = [];
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < ammount; i++) {
         const person = this.generatePerson()
         newData.push(person)
       }
-  
       return newData;
     }
 
     private generatePerson() {
       const faker = this.customizedFaker
       return {
-        randomIdentifier: faker.string.uuid().slice(0, 13),
+        randomIdentifier: faker.string.uuid(), //.slice(0, 13)
         name: `${faker.person.firstName()} ${faker.person.lastName()}`,
         address: this.region === RegionType.de ?
          `${faker.location.state()} ${faker.location.city()} ${faker.location.street()} ${faker.location.secondaryAddress()}` :

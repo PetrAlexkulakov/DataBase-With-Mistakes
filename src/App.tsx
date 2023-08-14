@@ -2,7 +2,8 @@ import { useState, useEffect, SetStateAction } from "react";
 import DataGenerator from "./components/dataGenerator";
 import DataTable from "./components/dataTable";
 import { MainData } from "./interfaces/MainData";
-import { RegionType } from "./interfaces/regionType";
+import { RegionType } from "./interfaces/RegionType";
+import './App.scss';
 
 function App() {
   const [region, setRegion] = useState<RegionType>(RegionType.en);
@@ -13,12 +14,12 @@ function App() {
 
   useEffect(() => {
     const dataGenerator = new DataGenerator(region, errorSliderValue, errorFieldValue, seed)
-    const newData = dataGenerator.generateData();
+    const newData = dataGenerator.generateData(20);
     setGeneratedData(newData);
   }, [region, errorSliderValue, errorFieldValue, seed]);
 
   return (
-    <div className="app">
+    <div className="d-flex flex-column align-items-center justify-content-center w-100">
       <form className="d-flex flex-row border border-primary p-1 gap-1">
         <select defaultValue="USA" className="form-select" aria-label="Пример выбора по умолчанию" 
           onChange={(e) => setRegion(e.target.value as SetStateAction<RegionType>)}>
