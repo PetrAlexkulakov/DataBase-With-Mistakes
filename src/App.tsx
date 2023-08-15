@@ -1,8 +1,8 @@
 import { useState, } from "react";
 import DataTable from "./components/dataTable";
 import { MainData } from "./interfaces/MainData";
-import './App.scss';
 import DataHeader from "./components/dataHeader";
+import './App.scss';
 
 function App() {
   const [generatedData, setGeneratedData] = useState<MainData[]>([]);
