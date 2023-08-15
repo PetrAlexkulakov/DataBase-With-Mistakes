@@ -4,64 +4,65 @@ import { MainData } from '../interfaces/MainData';
 import { RegionType } from '../interfaces/RegionType';
 
 class DataGenerator {
-    private customizedFaker: Faker;
+  private customizedFaker: Faker;
 
-    constructor (private region: RegionType, private errorFieldValue: number, seed: number) {
-        this.customizedFaker = allFakers[region]
-        this.customizedFaker.seed(seed)
-    }
-    generateData(ammount: number) {
-      const newData: MainData[] = [];
-      for (let i = 0; i < ammount; i++) {
-        const person = this.generatePerson()
-        newData.push(person)
-      }
-      return newData;
-    }
+  constructor (private region: RegionType, private errorFieldValue: number, seed: number) {
+    this.customizedFaker = allFakers[region]
+    this.customizedFaker.seed(seed)
+  }
 
-    private generatePerson() {
-      const faker = this.customizedFaker
-      return this.cryptoPerson({
-        randomIdentifier: faker.string.uuid().slice(0,13),
-        name: `${faker.person.firstName()} ${faker.person.lastName()}`,
-        address: this.region === RegionType.de ?
-         `${faker.location.state()} ${faker.location.city()} ${faker.location.street()}` :
-         this.region === RegionType.en ?
-         `${faker.location.city()} ${faker.location.street()} ${faker.location.buildingNumber()}` :
-         `${faker.location.zipCode()} ${faker.location.city()} ${faker.location.streetAddress()}`,
-        phone: faker.phone.number()
-      })
+  generateData(ammount: number) {
+    const newData: MainData[] = [];
+    for (let i = 0; i < ammount; i++) {
+      const person = this.generatePerson()
+      newData.push(person)
     }
+    return newData;
+  }
 
-    private cryptoPerson(person: MainData) {
-      const mistakes = Math.floor(this.errorFieldValue);
-      const mistakeChanse = this.errorFieldValue % 100;
-      for (let i = 0; i < mistakes; i++) {
-        this.makeMistake(person)
-      }
-      if(Math.random() <= mistakeChanse) {
-        this.makeMistake(person)
-      }
-      return person
-    }
+  private generatePerson() {
+    const faker = this.customizedFaker
+    return this.cryptoPerson({
+      randomIdentifier: faker.string.uuid(),//.slice(0,13)
+      name: `${faker.person.firstName()} ${faker.person.lastName()}`,
+      address: this.region === RegionType.de ?
+        `${faker.location.state()} ${faker.location.city()} ${faker.location.street()}` :
+        this.region === RegionType.en ?
+        `${faker.location.city()} ${faker.location.street()} ${faker.location.buildingNumber()}` :
+        `${faker.location.zipCode()} ${faker.location.city()} ${faker.location.streetAddress()}`,
+      phone: faker.phone.number()
+    })
+  }
 
-    private makeMistake(person: MainData) {
-      const fieldName = this.getField(person)
-      const random = Math.random()
-      if (random <= 0.33) {
-        person[fieldName as keyof MainData] = this.doDelete(person[fieldName as keyof MainData])
-      } else if (random <= 0.66) {
-        person[fieldName as keyof MainData] = this.doAdd(person[fieldName as keyof MainData], fieldName)
-      } else {
-        person[fieldName as keyof MainData] = this.doSwitch(person[fieldName as keyof MainData])
-      }
+  private cryptoPerson(person: MainData) {
+    const mistakes = Math.floor(this.errorFieldValue);
+    const mistakeChanse = this.errorFieldValue % 100;
+    for (let i = 0; i < mistakes; i++) {
+      this.makeMistake(person)
     }
+    if(Math.random() <= mistakeChanse) {
+      this.makeMistake(person)
+    }
+    return person
+  }
 
-    private getField(person: MainData) {
-      const keys = Object.keys(person);
-      const randomIndex = Math.floor(Math.random() * keys.length);
-      return keys[randomIndex];
+  private makeMistake(person: MainData) {
+    const fieldName = this.getField(person)
+    const random = Math.random()
+    if (random <= 0.33) {
+      person[fieldName as keyof MainData] = this.doDelete(person[fieldName as keyof MainData])
+    } else if (random <= 0.66) {
+      person[fieldName as keyof MainData] = this.doAdd(person[fieldName as keyof MainData], fieldName)
+    } else {
+      person[fieldName as keyof MainData] = this.doSwitch(person[fieldName as keyof MainData])
     }
+  }
+
+  private getField(person: MainData) {
+    const keys = Object.keys(person);
+    const randomIndex = Math.floor(Math.random() * keys.length);
+    return keys[randomIndex];
+  }
 
   private getRandomCharFromString(str: string) {
     return str[Math.floor(Math.random() * str.length)];

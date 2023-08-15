@@ -2,8 +2,8 @@ import { MainData } from "../interfaces/MainData";
 
 function DataTable({ data }: { data: MainData[]}) {
   return (
-    <div className="data-table border border-primary m-3 w-100 mw-100">
-      <table className="table">
+    <div className="data-table border border-primary m-3 w-100">
+      <table className="table w-100">
         <thead>
           <tr>
             <th>Number</th>
@@ -16,11 +16,11 @@ function DataTable({ data }: { data: MainData[]}) {
         <tbody>
           {data.map((item, index) => (
             <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{item.randomIdentifier}</td>
-              <td>{item.name}</td>
-              <td>{item.address}</td>
-              <td>{item.phone}</td>
+              <td className="wrapped-cell">{index + 1}</td>
+              <td className="wrapped-cell">{item.randomIdentifier}</td>
+              <td className="wrapped-cell">{item.name}</td>
+              <td className="wrapped-cell">{item.address}</td>
+              <td className="wrapped-cell">{item.phone}</td>
             </tr>
           ))}
         </tbody>

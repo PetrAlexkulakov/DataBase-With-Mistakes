@@ -47,7 +47,7 @@ function App() {
           value={Math.min(errorFieldValue, 1000)}
           placeholder='Errors' 
           onChange={handleNumberChange} />
-        <input type="number" name="name" placeholder='Seed' 
+        <input type="number" name="name" placeholder='Seed' defaultValue={42}
           onChange={(e) => setSeed(Number(e.target.value))} />
         <button type="button" className="btn border-black">Random</button>
       </form>

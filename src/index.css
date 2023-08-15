@@ -103,3 +103,13 @@ input[type=range]::-moz-range-thumb {
     border-radius: 10px/100%;
   cursor: pointer;
 }
+
+.table {
+  table-layout: auto;
+  width: 100%;
+}
+
+.wrapped-cell {
+  overflow-wrap: break-word;
+  max-width: 200px;
+}
