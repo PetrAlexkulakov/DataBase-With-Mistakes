@@ -1,13 +1,29 @@
-import { ChangeEvent, SetStateAction, useEffect, useState } from 'react'
+import { ChangeEvent, SetStateAction, useEffect } from 'react'
 import { MainData } from '../interfaces/MainData';
 import { RegionType } from '../interfaces/RegionType';
 import DataGenerator from './dataGenerator';
 
-const DataHeader = ({ setGeneratedData }: { setGeneratedData: React.Dispatch<React.SetStateAction<MainData[]>> }) => {
-    const [region, setRegion] = useState<RegionType>(RegionType.en);
-    const [errorSliderValue, setErrorSliderValue] = useState(0);
-    const [errorFieldValue, setErrorFieldValue] = useState(0);
-    const [seed, setSeed] = useState(0);
+const DataHeader = ({ 
+    setGeneratedData,
+    region,
+    setRegion,
+    errorSliderValue,
+    setErrorSliderValue,
+    errorFieldValue,
+    setErrorFieldValue,
+    seed,
+    setSeed
+ }: { 
+    setGeneratedData: React.Dispatch<React.SetStateAction<MainData[]>>,
+    region: RegionType,
+    setRegion: React.Dispatch<React.SetStateAction<RegionType>>,
+    errorSliderValue: number,
+    setErrorSliderValue: React.Dispatch<React.SetStateAction<number>>,
+    errorFieldValue: number,
+    setErrorFieldValue: React.Dispatch<React.SetStateAction<number>>,
+    seed: number,
+    setSeed: React.Dispatch<React.SetStateAction<number>> 
+}) => {
 
     useEffect(() => {
         const dataGenerator = new DataGenerator(region, errorFieldValue, seed)
@@ -31,9 +47,9 @@ const DataHeader = ({ setGeneratedData }: { setGeneratedData: React.Dispatch<Rea
         <form className="d-flex flex-row border border-primary p-1 gap-1">
             <select defaultValue="USA" className="form-select" aria-label="Пример выбора по умолчанию" 
             onChange={(e) => setRegion(e.target.value as SetStateAction<RegionType>)}>
-            <option value="en">EN</option>
-            <option value="fr">FR</option>
-            <option value="de">DE</option>
+                <option value="en">EN</option>
+                <option value="fr">FR</option>
+                <option value="de">DE</option>
             </select>
             <input type="range" min="0" max="10" step="0.25"
             value={errorSliderValue}

@@ -113,3 +113,7 @@ input[type=range]::-moz-range-thumb {
   overflow-wrap: break-word;
   max-width: 200px;
 }
+
+.infinite-scroll-component__outerdiv {
+  width: 100%;
+}
