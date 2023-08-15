@@ -5,10 +5,21 @@ import { RegionType } from '../interfaces/RegionType';
 
 class DataGenerator {
   private customizedFaker: Faker;
+  private alphabet: string;
 
   constructor (private region: RegionType, private errorFieldValue: number, seed: number) {
     this.customizedFaker = allFakers[region]
     this.customizedFaker.seed(seed)
+    
+    if (region === RegionType.de) {
+      this.alphabet = 'abcdefghijklmnopqrstuvwxyzäöüß' + 'abcdefghijklmnopqrstuvwxyzäöüß'.toUpperCase()
+    } else if (region === RegionType.fr) {
+      this.alphabet = 'abcdefghijklmnopqrstuvwxyzàâæçéèêëîïôœùûüÿ' + 
+        'abcdefghijklmnopqrstuvwxyzàâæçéèêëîïôœùûüÿ'.toUpperCase()
+    } else {
+      this.alphabet = 'abcdefghijklmnopqrstuvwxyz' + 
+      'abcdefghijklmnopqrstuvwxyz'.toUpperCase()
+    }
   }
 
   generateData(ammount: number) {
@@ -68,15 +79,21 @@ class DataGenerator {
     return str[Math.floor(Math.random() * str.length)];
   }
 
+  private getLetter() {
+    return this.alphabet[Math.floor(Math.random() * this.alphabet.length)]
+  }
+
   private getChar(fieldName: string) {
     if (fieldName === 'name') { 
-      return this.customizedFaker.string.alpha() 
+      return this.getLetter()
     }
     if (fieldName === 'phone') {
-      return this.getRandomCharFromString(this.customizedFaker.string.symbol() + this.customizedFaker.number.int({min: 0, max: 9}))
+      return this.getRandomCharFromString(this.customizedFaker.string.symbol() + 
+        this.customizedFaker.number.int({min: 0, max: 9}))
     }
     if (fieldName === 'randomIdentifier' || fieldName === 'address') {
-      return this.getRandomCharFromString(this.customizedFaker.string.alpha() + this.customizedFaker.number.int({min: 0, max: 9}));
+      return this.getRandomCharFromString(this.getLetter() + 
+        this.customizedFaker.number.int({min: 0, max: 9}));
     }
   }
 
