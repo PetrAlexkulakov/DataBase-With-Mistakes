@@ -23,7 +23,7 @@ class DataGenerator {
   private generatePerson() {
     const faker = this.customizedFaker
     return this.cryptoPerson({
-      randomIdentifier: faker.string.uuid(),//.slice(0,13)
+      randomIdentifier: faker.string.uuid(),
       name: `${faker.person.firstName()} ${faker.person.lastName()}`,
       address: this.region === RegionType.de ?
         `${faker.location.state()} ${faker.location.city()} ${faker.location.street()}` :
