@@ -1,4 +1,4 @@
-# DataBase-With-Mistakes
+# DataBase With Mistakes
 
 <a href="https://db-with-mistakes.onrender.com/">Deploy</a>
 
