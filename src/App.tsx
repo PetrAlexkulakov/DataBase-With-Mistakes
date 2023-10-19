@@ -44,7 +44,7 @@ function App() {
         hasMore={hasMoreData}
         loader={<h4>Loading...</h4>}
         endMessage={<p>No more data to load</p>}
-        className="border-top border-primary mt-3 w-100"
+        className="border border-primary mt-3 w-75"
       >
         <DataTable data={generatedData} />
       </InfiniteScroll>

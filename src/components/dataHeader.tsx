@@ -44,26 +44,40 @@ const DataHeader = ({
     };
 
     return (
-        <form className="d-flex flex-row border border-primary p-1 gap-1">
-            <select defaultValue="USA" className="form-select" aria-label="Пример выбора по умолчанию" 
-            onChange={(e) => setRegion(e.target.value as SetStateAction<RegionType>)}>
-                <option value="en">EN</option>
-                <option value="fr">FR</option>
-                <option value="de">DE</option>
-            </select>
-            <input type="range" min="0" max="10" step="0.25"
-            value={errorSliderValue}
-            id="customRange1" 
-            onChange={handleSliderChange} />
-            <input type="number" min="0" max="1000" step="0.25" 
-            value={Math.min(errorFieldValue, 1000)}
-            placeholder='Errors' 
-            onChange={handleNumberChange} />
-            <input type="number" name="name" placeholder='Seed'
-            value={seed}
-            onChange={(e) => setSeed(Number(e.target.value))} />
-            <button type="button" className="btn border-black"
-            onClick={() => setSeed(Math.floor(Math.random() * 1000))}>Random</button>
+        <form 
+            className="d-flex flex-row justify-content-between border border-primary bg-white p-1 gap-1"
+            style={{width: '90%'}}
+        >
+            <div className="d-flex flex-row gap-1 ps-3">
+                <select defaultValue="USA" className="form-select" aria-label="Пример выбора по умолчанию" 
+                    onChange={(e) => setRegion(e.target.value as SetStateAction<RegionType>)}>
+                    <option value="en">EN</option>
+                    <option value="fr">FR</option>
+                    <option value="de">DE</option>
+                </select>
+                <input type="range" min="0" max="10" step="0.25"
+                    value={errorSliderValue}
+                    id="customRange1" 
+                    onChange={handleSliderChange} 
+                />
+                <input type="number" min="0" max="1000" step="0.25" 
+                    value={Math.min(errorFieldValue, 1000)}
+                    placeholder='Errors' 
+                    onChange={handleNumberChange} 
+                />
+            </div>
+            <div className="d-flex flex-row align-items-center gap-1 pe-3">             
+                <div>Seed:</div>
+                <input type="number" name="name" placeholder='Seed'
+                    value={seed}
+                    onChange={(e) => setSeed(Number(e.target.value))} 
+                />
+                <button type="button" className="btn border-black"
+                    onClick={() => setSeed(Math.floor(Math.random() * 1000))}
+                >
+                    Random
+                </button>
+            </div>
         </form>
     )
 }

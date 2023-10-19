@@ -2,4 +2,10 @@
   min-height: 100%;
   overflow: hidden;
   width: 100%;
+  background-image: url('./assets/background.jpg');
+}
+
+.infinite-scroll-component__outerdiv {
+  display: flex;
+  justify-content: center;
 }
